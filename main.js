@@ -1,4 +1,4 @@
-async function fetchMetaData() {
+const fetchMetaData = async () => {
   let allData = [];
   let morePagesAvailable = true;
   let pageNumber = 1;
@@ -17,21 +17,20 @@ async function fetchMetaData() {
       morePagesAvailable = false;
     }
   }
-
   allData = allData.reverse();
 
   loadResult(allData);
 
-  return allData.reverse();
-}
+  return allData;
+};
 
-function clearTable(table) {
+const clearTable = (table) => {
   let rows = table.rows;
   let i = rows.length;
   while (--i) {
     rows[i].parentNode.removeChild(rows[i]);
   }
-}
+};
 
 const currecyFormat = (amount) => {
   let textTemp =
@@ -40,16 +39,7 @@ const currecyFormat = (amount) => {
   return textTemp;
 };
 
-const loadResult = (array) => {
-  let tableSelf = document.querySelector("table");
-  clearTable(tableSelf);
-  calculateTotal(tableSelf, array);
-  generateTable(tableSelf, array);
-};
-
-fetchMetaData();
-
-function generateTable(table, data) {
+const generateTable = (table, data) => {
   for (let element of data) {
     let newRow = table.insertRow(-1);
     let tbody = document.createElement("tbody");
@@ -74,7 +64,7 @@ function generateTable(table, data) {
     }
     table.appendChild(tbody);
   }
-}
+};
 
 const calculateTotal = (table, data) => {
   let total = 0;
@@ -83,3 +73,12 @@ const calculateTotal = (table, data) => {
   });
   table.rows[0].cells[3].innerHTML = currecyFormat(total);
 };
+
+const loadResult = (array) => {
+  let tableSelf = document.querySelector("table");
+  clearTable(tableSelf);
+  calculateTotal(tableSelf, array);
+  generateTable(tableSelf, array);
+};
+
+fetchMetaData();
