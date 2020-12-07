@@ -1,28 +1,31 @@
 const fetchMetaData = async () => {
-  let allData = [];
-  let morePagesAvailable = true;
-  let pageNumber = 1;
-  let tableSelf = document.querySelector("table");
+  try {
+    let allData = [];
+    let morePagesAvailable = true;
+    let pageNumber = 1;
+    let tableSelf = document.querySelector("table");
 
-  while (morePagesAvailable) {
-    const response = await fetch(
-      `https://resttest.bench.co/transactions/${pageNumber}.json`
-    );
-    let { ok } = response;
-    if (ok) {
-      let data = await response.json();
-      let { transactions } = data;
-      transactions.forEach((e) => allData.unshift(e));
-      pageNumber++;
-    } else {
-      morePagesAvailable = false;
+    while (morePagesAvailable) {
+      const response = await fetch(
+        `https://resttest.bench.co/transactions/${pageNumber}.json`
+      );
+      let { ok } = response;
+      if (ok) {
+        let data = await response.json();
+        let { transactions } = data;
+        transactions.forEach((e) => allData.unshift(e));
+        pageNumber++;
+      } else {
+        morePagesAvailable = false;
+      }
     }
+    allData = allData.reverse();
+    clearTable(tableSelf);
+    generateTable(tableSelf, allData);
+    calculateBalance(tableSelf, allData);
+  } catch (error) {
+    console.error(error);
   }
-  allData = allData.reverse();
-
-  clearTable(tableSelf);
-  generateTable(tableSelf, allData);
-  calculateBalance(tableSelf, allData);
 };
 
 const currecyFormat = (amount) => {
