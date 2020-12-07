@@ -66,8 +66,10 @@ td:last-child {
     margin: 0 !important;
     font-size: 0.5em;
   }
-  td {
-    padding: 0;
+  td,
+  th,
+  tr {
+    padding: 0 !important;
   }
   tr {
     font-size: 1.8em;

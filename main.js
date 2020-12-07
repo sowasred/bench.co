@@ -2,6 +2,7 @@ const fetchMetaData = async () => {
   let allData = [];
   let morePagesAvailable = true;
   let pageNumber = 1;
+  let tableSelf = document.querySelector("table");
 
   while (morePagesAvailable) {
     const response = await fetch(
@@ -19,9 +20,16 @@ const fetchMetaData = async () => {
   }
   allData = allData.reverse();
 
-  loadResult(allData);
+  clearTable(tableSelf);
+  generateTable(tableSelf, allData);
+  calculateBalance(tableSelf, allData);
+};
 
-  return allData;
+const currecyFormat = (amount) => {
+  let textTemp =
+    parseFloat(amount) > 0 ? `$${amount}` : `-$${Math.abs(amount)}`;
+
+  return textTemp;
 };
 
 const clearTable = (table) => {
@@ -30,13 +38,6 @@ const clearTable = (table) => {
   while (--i) {
     rows[i].parentNode.removeChild(rows[i]);
   }
-};
-
-const currecyFormat = (amount) => {
-  let textTemp =
-    parseFloat(amount) > 0 ? `$${amount}` : `-$${Math.abs(amount)}`;
-
-  return textTemp;
 };
 
 const generateTable = (table, data) => {
@@ -66,19 +67,12 @@ const generateTable = (table, data) => {
   }
 };
 
-const calculateTotal = (table, data) => {
+const calculateBalance = (table, data) => {
   let total = 0;
   data.map((item) => {
     total += parseFloat(item.Amount);
   });
   table.rows[0].cells[3].innerHTML = currecyFormat(total);
-};
-
-const loadResult = (array) => {
-  let tableSelf = document.querySelector("table");
-  clearTable(tableSelf);
-  calculateTotal(tableSelf, array);
-  generateTable(tableSelf, array);
 };
 
 fetchMetaData();
