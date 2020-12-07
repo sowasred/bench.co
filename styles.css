@@ -4,6 +4,7 @@
 body {
   background: #efede8;
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 h1 {
   color: white;
@@ -36,7 +37,7 @@ td:nth-child(3) {
 tr:not(:first-child) {
   background-color: #faf9f8;
   border-top: 1px solid #ededf0;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 tr:not(:first-child):hover {
@@ -55,23 +56,25 @@ td:last-child {
 }
 
 .col1 {
-  width: 10%;
+  width: 5vw;
 }
 .col2 {
-  width: 50%;
+  width: 50vw;
 }
 
 @media all and (max-width: 760px) {
   table {
     margin: 0 !important;
-    font-size: 0.5em;
   }
   td,
   th,
   tr {
     padding: 0 !important;
   }
-  tr {
-    font-size: 1.8em;
+  th {
+    font-size: 0.7em;
+  }
+  td {
+    font-size: 0.6em;
   }
 }

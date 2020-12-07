@@ -1,10 +1,9 @@
 const fetchMetaData = async () => {
+  let allData = [];
+  let morePagesAvailable = true;
+  let pageNumber = 1;
+  let tableSelf = document.querySelector("table");
   try {
-    let allData = [];
-    let morePagesAvailable = true;
-    let pageNumber = 1;
-    let tableSelf = document.querySelector("table");
-
     while (morePagesAvailable) {
       const response = await fetch(
         `https://resttest.bench.co/transactions/${pageNumber}.json`
@@ -29,10 +28,10 @@ const fetchMetaData = async () => {
 };
 
 const currecyFormat = (amount) => {
-  let textTemp =
+  let newFormat =
     parseFloat(amount) > 0 ? `$${amount}` : `-$${Math.abs(amount)}`;
 
-  return textTemp;
+  return newFormat;
 };
 
 const clearTable = (table) => {
